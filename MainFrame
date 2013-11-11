@@ -1,0 +1,193 @@
+package com.weixiao.store;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+public class MainFrame extends JFrame implements ActionListener {
+	JPanel p1 = null;
+	JPanel p2 = null;
+	JPanel p3 = null;
+	Object[][] data = new Object[5][8];
+	ArrayList datal = new ArrayList();
+	//商品名称和编号
+	JLabel goods_Name_Label = null;
+	JLabel goods_Number_Label = null;
+	JTextField goods_Name_txt = null;
+	JTextField goods_Number_txt = null;
+	JButton addBtn = new JButton("添加");
+	JButton queryBtn = new JButton("查找");
+	JButton modifyBtn = new JButton("修改");
+	JButton deleteBtn = new JButton("删除");
+	
+	//商品数量和单价
+	JLabel productQ = null;
+	JLabel productS = null;
+	JComboBox pqJCB = null;
+	JComboBox psJCB = null;
+	
+	//商品类别和入库时间
+	JLabel productC = null;
+	JLabel inputBase = null;
+	JComboBox pC = null;
+	JComboBox piB = null;
+	
+	//商品规格和审核员
+	JLabel pStandard = null;
+	JLabel ass = null;
+	JComboBox pSJCB = null;
+	JTextField assJF = null;
+	
+	
+	
+	public MainFrame(){
+		setSize(600,600);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		p3 = new JPanel();
+		p3.setLayout(new FlowLayout());
+		add(p3);
+		p1 = new JPanel();
+		p1.setLayout(new GridLayout(9,1));
+		goods_Name_Label = new JLabel("商品名称：");
+		goods_Number_Label = new JLabel("商品编号");
+		goods_Name_txt = new JTextField(10);
+		goods_Number_txt = new JTextField(10);
+		p3.add(p1);
+		
+		//p1里的panel 1-4
+		JPanel p1_1 = new JPanel();
+		JPanel p1_2 = new JPanel();
+		JPanel p1_3 = new JPanel();
+		JPanel p1_4 = new JPanel();
+		
+		p1.add(new JLabel());
+		p1.add(p1_1);
+		p1_1.add(goods_Name_Label);
+		p1_1.add(goods_Name_txt);
+		p1_1.add(goods_Number_Label);
+		p1_1.add(goods_Number_txt);
+		
+		productQ = new JLabel("商品数量：");
+		productS = new JLabel("商品单价：");
+		//JTextField pqJF = new JTextField(6);
+		//JTextField psJF = new JTextField(6);
+		pqJCB = new JComboBox();
+		pqJCB.setEditable(true);
+		psJCB = new JComboBox();
+		psJCB.setEditable(true);
+		
+		p1.add(new JLabel());
+		p1.add(p1_2);
+		p1_2.add(productQ);
+		//p1_2.add(pqJF);
+		p1_2.add(pqJCB);
+		p1_2.add(productS);
+		//p1_2.add(psJF);
+		p1_2.add(psJCB);
+		
+		
+		productC = new JLabel("商品类别：");
+		inputBase = new JLabel("入库时间：");
+		pC = new JComboBox();
+		pC.setEditable(true);
+		//pC.setSize(10, 3);
+		piB = new JComboBox();
+		piB.setEditable(true);
+		
+		p1.add(new JLabel());
+		p1.add(p1_3);
+		p1_3.add(productC);
+		p1_3.add(pC);
+		p1_3.add(inputBase);
+		p1_3.add(piB);
+		
+		
+		pStandard = new JLabel("商品规格：");
+		ass = new JLabel("审核员：");
+		pSJCB = new JComboBox();
+		pSJCB.setEditable(true);
+		//pSJCB.setSize(10, 3);
+		assJF = new JTextField(10);
+		assJF.setEditable(true);
+		
+		p1.add(new JLabel());
+		p1.add(p1_4);
+		p1_4.add(pStandard);
+		p1_4.add(pSJCB);
+		p1_4.add(ass);	
+		p1_4.add(assJF);
+		p1.add(new JLabel());
+		
+		p2 = new JPanel();
+		p3.add(p2);
+		p2.setLayout(new GridLayout(9,1));
+		p2.setBorder(BorderFactory.createLineBorder(Color.black));
+		p2.add(new JLabel());
+		p2.add(addBtn);
+		addBtn.addActionListener(this);
+		
+		p2.add(new JLabel());
+		p2.add(queryBtn);
+		p2.add(new JLabel());
+		p2.add(modifyBtn);
+		p2.add(new JLabel());
+		p2.add(deleteBtn);
+		p2.add(new JLabel());
+		
+		String columnNames[] = {"货物名称","货物编号","货物数量","货物单价","货物类别","入库时间","货物规格","审核员"};
+		ArrayList col = new ArrayList();
+		col.add(new String("货物名称"));
+		col.add(new String("货物编号"));
+		col.add(new String("货物数量"));
+		col.add(new String("货物单价"));
+		col.add(new String("货物类别"));
+		col.add(new String("入库时间"));
+		col.add(new String("货物规格"));
+		col.add(new String("审核员"));
+//		Object[][] data = {
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"},
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"},
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"},
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"},
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"},
+//		{"woasdlk","asjdlaksd",new Integer(1000),"asdjalksd","owalskdl","adasd","adasd","asdj"}
+//		};
+		JTable table = new JTable(data,columnNames);
+		table.setPreferredScrollableViewportSize(new Dimension(500,100));
+		JScrollPane scrollPane = new JScrollPane(table);
+		JPanel p4 = new JPanel(new BorderLayout());
+		p3.add(p4);
+		p4.add(scrollPane,BorderLayout.CENTER);
+		
+		validate();
+		
+	}
+	public static void main(String[] args){
+		MainFrame mianFrame = new MainFrame();
+	}
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == addBtn){
+			data[0] = new AddBtn(this).setData();
+			datal.add(data[0]);
+		}
+		
+	}
+}
